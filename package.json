@@ -1,0 +1,17 @@
+{
+  "name": "black_tip",
+  "version": "1.0.0",
+  "description": "blackTip tip mobile",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "blackTip",
+    "black-tip",
+    "tip",
+    "mobile"
+  ],
+  "author": "yishibakaien",
+  "license": "ISC"
+}
