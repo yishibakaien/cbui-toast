@@ -93,13 +93,13 @@ BlackTip.prototype.hide = function() {
 BlackTip.prototype.remove = function() {
     document.body.removeChild(this.blackTip);
 
-    console.log(window[TIP_ID + this.eleId]);
+    // console.log(window[TIP_ID + this.eleId]);
     try {
         delete window[TIP_ID + this.eleId];
     } catch (e) {
 
     }
-    console.info(window[TIP_ID + this.eleId]);
+    // console.info(window[TIP_ID + this.eleId]);
     this.timer = null;
     clearTimeout(this.timer);
 };
