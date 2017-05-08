@@ -1,7 +1,7 @@
 // create by cloud_cb on 2017/04/14.
 
 'use strict';
-// require('./css.css');
+
 var TIP_ID = '_blackTip_';
 var STATE_HIDE = 0;
 var STATE_SHOW = 1;
@@ -11,6 +11,7 @@ var id = 0;
 function _getId() {
     return ++id;
 }
+
 function BlackTip(config) {
     this.defaults = {
         text: '',
@@ -97,7 +98,7 @@ BlackTip.prototype.remove = function() {
     try {
         delete window[TIP_ID + this.eleId];
     } catch (e) {
-
+        
     }
     // console.info(window[TIP_ID + this.eleId]);
     this.timer = null;
