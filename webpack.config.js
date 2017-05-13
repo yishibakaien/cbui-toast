@@ -6,7 +6,7 @@ module.exports = {
     },
     output: {
         path: __dirname + '/build/',
-        filename: 'blackTip.min.js',
+        filename: 'blackTip.js',
         library: 'blackTip',
         libraryTarget: 'umd'
     }
