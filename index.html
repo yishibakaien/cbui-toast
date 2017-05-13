@@ -79,13 +79,11 @@
 <script>
     var b = blackTip({
         text: '数据加载中',
-        type: 'loading',
-        mask: true,
-        time: 10000
+        type: 'loading'
     });
 
     setTimeout(function() {
-        b.hide();
+        b.remove();
         var c = blackTip({
             text: '加载失败',
             time: 1000,

@@ -15,7 +15,7 @@ function _getId() {
 function BlackTip(config) {
     this.defaults = {
         text: '',
-        type: 'default',
+        type: 'loading',
         time: 1500,
         mask: false,
         zIndex: 999,
