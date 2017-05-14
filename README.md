@@ -26,6 +26,10 @@ blackTip({
 });
 ```
 ![screenshot](screenshot/3.png)
+
+## Demo
+[demo 点击预览](https://yishibakaien.github.io/black-tip/index.html)
+
 ## Install 安装
 #### npm 安装
 ```shell

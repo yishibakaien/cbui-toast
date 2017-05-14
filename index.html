@@ -74,29 +74,72 @@
 </head>
 <body>
   <h1>blackTip</h1>
+  <button id="btnLoading">loading</button>
+  <button id="btnInfo">info</button>
+  <button id="btnSuccess">success</button>
+  <button id="ajax">模拟发起一个请求</button>
 <script src="./build/blackTip.js"></script>
 
 <script>
-    var b = blackTip({
-        text: '数据加载中',
-        type: 'loading'
-    });
+    function $(id) {
+        return document.getElementById(id);
+    }
+    $('btnLoading').onclick = function() {
+        blackTip({
+            text: '数据加载中',
+            type: 'loading',
+            time: 2000,
+            complete: function() {
+                console.log('loading结束');
+            }
+        });
+    }
 
-    setTimeout(function() {
-        b.remove();
-        var c = blackTip({
+    $('btnInfo').onclick = function() {
+        blackTip({
             text: '加载失败',
             time: 1000,
             type: 'info',
             complete: function() {
+                console.log('info结束');
+            }
+        });
+    }
+    $('btnSuccess').onclick = function() {
+        blackTip({
+            text: '已完成',
+            type: 'success',
+            time: 1000,
+            complete: function() {
+                console.log('success结束');
+            }
+        });
+    }
+
+    $('ajax').onclick = function() {
+        var b = blackTip({
+            text: '数据加载中',
+            type: 'loading',
+            time: 10000
+        });
+        setTimeout(function() {
+            b.hide();
+
+            if (Math.random() > 0.5) {
+                blackTip({
+                    text: '加载失败',
+                    time: 1000,
+                    type: 'info'
+                });
+            } else {
                 blackTip({
                     text: '已完成',
                     type: 'success',
                     time: 800
                 });
             }
-        });
-    }, 2000);
+        }, 1500);
+    }
 </script>
 </body>
 </html>
