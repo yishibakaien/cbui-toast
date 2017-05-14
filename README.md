@@ -50,7 +50,7 @@ $ cnpm install black-tip
 
 ## 方法
 - hide()
-blackTip的实例可以调用hide()方法，直接隐藏当前的blackTip
+##### blackTip的实例可以调用hide()方法，直接隐藏当前的blackTip
 ```js
 var loadingToast = blackTip({
     text: '正在加载中',
@@ -62,7 +62,7 @@ setTimeout(function() {
 }, 1500);
 ```
 - remove()
-remove()方法与hide() 方法的区别在于，remove() 方法会直接将当前blackTip的实例 dom 直接从页面中删去，并释放资源
+##### remove()方法与hide() 方法的区别在于，remove() 方法会直接将当前blackTip的实例 dom 直接从页面中删去，并释放资源
 ```js
 loadingToast.remove()
 ```
