@@ -1,10 +1,7 @@
 # balckTip
 
-移动端黑色提示，高度还原微信toast，轻量级 纯js实现不依赖任何第三方库
-
-** Notice: ** This component is designed for mobile(该组件适用于移动端)
-
-## Screenshot
+移动端黑色提示，高度还原微信toast的一个轻量级提示插件，原生js实现，gzip压缩之后 只有2.4Kb
+## Screenshot 预览
 ```js
 blackTip({
     text: '数据加载中',
@@ -47,10 +44,28 @@ $ cnpm install black-tip
 | text       | String   | ''     | 你要展示的文字    |
 | type             | String            | 'loading'            | toast的类型 目前支持: 'loading'、 'info'、'success'    |
 | time             | Number            |  1500                | toast显示时长    |
-| mask             | boolean            |  false                | 是否带透明防触摸蒙版   |
+| mask             | boolean            |  false                | 是否带透明防触摸蒙版(暂不支持)   |
 | zIndex             | Number            |  999                | toast的z-index    |
 | complete             | Function            | null                 | toast隐藏后的回调函数   |
 
+## 方法
+- hide()
+blackTip的实例可以调用hide()方法，直接隐藏当前的blackTip
+```js
+var loadingToast = blackTip({
+    text: '正在加载中',
+    type: 'loading',
+    time: 10000 // 时间设置长一点 10秒
+});
+setTimeout(function() {
+    loadingToast.hide();
+}, 1500);
+```
+- remove()
+remove()方法与hide() 方法的区别在于，remove() 方法会直接将当前blackTip的实例 dom 直接从页面中删去，并释放资源
+```js
+loadingToast.remove()
+```
 ## 示例代码
 
 #### 通过js引入
@@ -64,7 +79,7 @@ nmp install black-tip --save-dev
 #### 示例代码
 ```js
 var blackTip = require('black-tip');
-//import blackTip from 'black-tip'; 
+// 或者可以使用es6语法 import blackTip from 'black-tip'; 
 
 // 生成 blackTip 实例，并用一个变量保存它，方便后续操作
 var loadingToast = blackTip({
