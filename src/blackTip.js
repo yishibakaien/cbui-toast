@@ -12,119 +12,141 @@ function _getId() {
     return ++id;
 }
 
-function BlackTip(config) {
-    this.defaults = {
-        text: '',
-        type: 'loading',
-        time: 1500,
-        mask: false,
-        zIndex: 999,
-        complete: null
-    };
-    this.timer = null;
-    this._init(config);
+function _getSingle(fn) {
+    var result;
+    return function() {
+        return result || (result = fn.apply(this, arguments));
+    }
 }
 
-BlackTip.prototype._init = function(config) {
-    this.eleId = _getId();
-    
-    if (typeof config !== 'object') {
-        return;
-    }
+function createBlackTipLayer() {
+    var div = document.createElement('div');
+    div.id = TIP_ID;
+    div.innerHTML = '<div class="icon"></div><p class="text"></p>';
+    div.style.display = 'none';
+    document.body.appendChild(div);
+    return div;
+}
 
-    for (var key in config) {
-        if (!config.hasOwnProperty(key)) {
-            continue;
-        }
-        this.defaults[key] = config[key];
-    }
-
-    if (!document.getElementById(TIP_ID + 'style')) {
-        this._insertStyle();
-    }
-
-    this._createDom();
-
-    this.timer = setTimeout(function() {
-        this.hide();
-        if (typeof this.defaults.complete === 'function') {
-            this.defaults.complete();
-        }
-    }.bind(this), this.defaults.time);
-};
-
-BlackTip.prototype.set = function() {
-    switch (this.defaults.type) {
-        case 'default':
-            this.icon.style.display = 'none';
-            break;
-        case 'info':
-            this.icon.innerText = '!';
-            this.icon.className += ' info';
-            break;
-        case 'success':
-            // this.icon.innerText = '√';
-            this.icon.className += ' success';
-            break;
-        case 'loading':
-            this.icon.className += ' loading';
-            break;
-        default:
-            this.icon.style.display = 'none';
-            break;
-    }
-    if (!!this.defaults.text) {
-        this.text.innerText = this.defaults.text;
-    } else {
-        this.text.display = 'none';
-    }
-    if (!!this.defaults.zIndex) {
-        this.blackTip.style.zIndex = this.defaults.zIndex;
-    }
-    this.show();
-};
-
-BlackTip.prototype.show = function() {
-    this.state = STATE_SHOW;
-    document.body.appendChild(this.blackTip);
-};
-
-BlackTip.prototype.hide = function() {
-    this.blackTip.style.display = 'none';
-    this.state = STATE_HIDE;
-};
-
-BlackTip.prototype.remove = function() {
-    document.body.removeChild(this.blackTip);
-
-    // console.log(window[TIP_ID + this.eleId]);
-    try {
-        delete window[TIP_ID + this.eleId];
-    } catch (e) {
+function blackTip(type, options) {
+    var defaults = {
         
     }
-    // console.info(window[TIP_ID + this.eleId]);
-    this.timer = null;
-    clearTimeout(this.timer);
-};
+}
 
-BlackTip.prototype._createDom = function() {
-    this.blackTip = window[TIP_ID + this.eleId] = document.createElement('div', TIP_ID + this.eleId);
-    this.state = STATE_SHOW;
+// function BlackTip(type, config) {
+//     this.defaults = {
+//         text: '',
+//         type: type,
+//         time: 1500,
+//         mask: false,
+//         zIndex: 999,
+//         complete: null
+//     };
+//     this.timer = null;
+//     this._init(config);
+// }
 
-    this.blackTip.className = TIP_ID;
+// BlackTip.prototype._init = function(config) {
+//     this.eleId = _getId();
+    
+//     if (typeof config !== 'object') {
+//         return;
+//     }
 
-    this.icon = document.createElement('div');
-    this.icon.className = 'icon';
+//     for (var key in config) {
+//         if (!config.hasOwnProperty(key)) {
+//             continue;
+//         }
+//         this.defaults[key] = config[key];
+//     }
 
-    this.text = document.createElement('p');
-    this.text.className = 'text';
+//     if (!document.getElementById(TIP_ID + 'style')) {
+//         this._insertStyle();
+//     }
 
-    this.blackTip.appendChild(this.icon);
-    this.blackTip.appendChild(this.text);
+//     this._createDom();
 
-    this.set();
-};
+//     this.timer = setTimeout(function() {
+//         this.hide();
+//         if (typeof this.defaults.complete === 'function') {
+//             this.defaults.complete();
+//         }
+//     }.bind(this), this.defaults.time);
+// };
+
+// BlackTip.prototype.set = function() {
+//     switch (this.defaults.type) {
+//         case 'default':
+//             this.icon.style.display = 'none';
+//             break;
+//         case 'info':
+//             this.icon.innerText = '!';
+//             this.icon.className += ' info';
+//             break;
+//         case 'success':
+//             // this.icon.innerText = '√';
+//             this.icon.className += ' success';
+//             break;
+//         case 'loading':
+//             this.icon.className += ' loading';
+//             break;
+//         default:
+//             this.icon.style.display = 'none';
+//             break;
+//     }
+//     if (!!this.defaults.text) {
+//         this.text.innerText = this.defaults.text;
+//     } else {
+//         this.text.display = 'none';
+//     }
+//     if (!!this.defaults.zIndex) {
+//         this.blackTip.style.zIndex = this.defaults.zIndex;
+//     }
+//     this.show();
+// };
+
+// BlackTip.prototype.show = function() {
+//     this.state = STATE_SHOW;
+//     document.body.appendChild(this.blackTip);
+// };
+
+// BlackTip.prototype.hide = function() {
+//     this.blackTip.style.display = 'none';
+//     this.state = STATE_HIDE;
+// };
+
+// BlackTip.prototype.remove = function() {
+//     document.body.removeChild(this.blackTip);
+
+//     // console.log(window[TIP_ID + this.eleId]);
+//     try {
+//         delete window[TIP_ID + this.eleId];
+//     } catch (e) {
+        
+//     }
+//     // console.info(window[TIP_ID + this.eleId]);
+//     this.timer = null;
+//     clearTimeout(this.timer);
+// };
+
+// BlackTip.prototype._createDom = function() {
+//     this.blackTip = window[TIP_ID + this.eleId] = document.createElement('div', TIP_ID + this.eleId);
+//     this.state = STATE_SHOW;
+
+//     this.blackTip.className = TIP_ID;
+
+//     this.icon = document.createElement('div');
+//     this.icon.className = 'icon';
+
+//     this.text = document.createElement('p');
+//     this.text.className = 'text';
+
+//     this.blackTip.appendChild(this.icon);
+//     this.blackTip.appendChild(this.text);
+
+//     this.set();
+// };
 
 BlackTip.prototype._insertStyle = function() {
     this.style = document.createElement('style');
@@ -135,4 +157,4 @@ BlackTip.prototype._insertStyle = function() {
 
 module.exports = function(obj) {
     return new BlackTip(obj);
-}
+};
