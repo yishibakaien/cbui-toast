@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
-<title>balckTip</title>
-<!-- <link rel="stylesheet" href="src/css.css"> -->
-<!-- <link rel="stylesheet" href="./src/css.css"> -->
 
-<style>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <title>balckTip</title>
+    <!-- <link rel="stylesheet" href="src/css.css"> -->
+    <!-- <link rel="stylesheet" href="./src/css.css"> -->
+    <style>
     /**{margin:0;padding: 0}
     ._blackTip_ {
         margin: 0;
@@ -68,78 +68,70 @@
         0%{-webkit-transform: rotate3d(0, 0, 1, 0deg);}
         100%{-webkit-transform: rotate3d(0, 0, 1, 360deg);}
     }*/
-    
-    
-</style>
+    </style>
 </head>
+
 <body>
-  <h1>blackTip</h1>
-  <button id="btnLoading">loading</button>
-  <button id="btnInfo">info</button>
-  <button id="btnSuccess">success</button>
-  <button id="ajax">模拟发起一个请求</button>
-<script src="./build/blackTip.js"></script>
-
+    <h1>blackTip</h1>
+    <button id="show">显示DIV</button>
+    <button id="hide">隐藏DIV</button>
+    <button id="text">点击显示带文字DIV</button>
+    <!-- <button id="btnLoading">loading</button>
+    <button id="btnInfo">info</button>
+    <button id="btnSuccess">success</button>
+    <button id="ajax">模拟发起一个请求</button> -->
+    <!-- <script src="./build/blackTip.js"></script> -->
 <script>
-    function $(id) {
-        return document.getElementById(id);
+    var div;
+    function $(str) {
+        return document.querySelector(str);
     }
-    $('btnLoading').onclick = function() {
-        blackTip({
-            text: '数据加载中',
-            type: 'loading',
-            time: 2000,
-            complete: function() {
-                console.log('loading结束');
-            }
+    function bind(ele, fn) {
+        ele.addEventListener('click', fn, false);
+    }
+    function getSingle(fn) {
+        var ret;
+        return function() {
+            return ret || (ret = fn.apply(this, arguments));
+        };
+    }
+    function createDOM() {
+        var _div = document.createElement('div');
+        _css(_div, {
+            margin: '50px auto',
+            width: '200px',
+            height: '200px',
+            backgroundColor: '#ccc'
         });
+        return _div;
     }
 
-    $('btnInfo').onclick = function() {
-        blackTip({
-            text: '加载失败',
-            time: 1000,
-            type: 'info',
-            complete: function() {
-                console.log('info结束');
-            }
-        });
-    }
-    $('btnSuccess').onclick = function() {
-        blackTip({
-            text: '已完成',
-            type: 'success',
-            time: 1000,
-            complete: function() {
-                console.log('success结束');
-            }
-        });
-    }
+    var getDiv = getSingle(createDOM);
 
-    $('ajax').onclick = function() {
-        var b = blackTip({
-            text: '数据加载中',
-            type: 'loading',
-            time: 10000
-        });
-        setTimeout(function() {
-            b.hide();
-
-            if (Math.random() > 0.5) {
-                blackTip({
-                    text: '加载失败',
-                    time: 1000,
-                    type: 'info'
-                });
-            } else {
-                blackTip({
-                    text: '已完成',
-                    type: 'success',
-                    time: 800
-                });
-            }
-        }, 1500);
+    function initDOM() {
+        div = getDiv();
+        document.body.appendChild(div);
+        return div;
     }
+    function _css(ele, options) {
+        for (var key in options) {
+            if (options.hasOwnProperty(key)) {
+                ele.style[key] = options[key];
+            }
+        }
+    }
+    bind($('#show'), function() {
+        initDOM();
+    });
+    bind($('#hide'), function() {
+        document.body.removeChild(div);
+    });
+    bind($('#text'), function() {
+        
+        initDOM().innerHTML = '插入的文字';
+    });
+
 </script>
 </body>
+
 </html>
