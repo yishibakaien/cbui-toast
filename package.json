@@ -1,8 +1,8 @@
 {
   "name": "black-tip",
   "version": "1.0.0",
-  "description": "little tip for mobile web",
-  "main": "index.js",
+  "description": "little tip/toast plugin for mobile web",
+  "main": "./build/blackTip.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,6 +11,8 @@
     "blackTip",
     "tip",
     "mobile-tip",
+    "toast",
+    "mobile-toast",
     "mobile"
   ],
   "author": "yishibakaien",
