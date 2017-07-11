@@ -3,13 +3,13 @@ var htmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: './src/blackTip.js'
+        app: './src/Toast.js'
     },
     output: {
         path: __dirname + '/build/',
-        filename: 'blackTip.js',
-        chunkFilename: 'blackTip.js',
-        library: 'blackTip',
+        filename: 'Toast.js',
+        chunkFilename: 'Toast.js',
+        library: 'Toast',
         libraryTarget: 'umd'
     },
     devServer: {
@@ -23,7 +23,7 @@ module.exports = {
             template: './index.html',
             filename: 'index.html',
             chunks: ['app'],
-            inject: true
+            inject: 'head'
         })
     ]
 }

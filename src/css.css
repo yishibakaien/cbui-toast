@@ -7,7 +7,23 @@
     0%{-webkit-transform: rotate(0);}
     100%{-webkit-transform: rotate(360deg);}
 }
-
+._blackTip_ {
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    position: fixed;
+    z-index: 5000;
+    width: 7.6em;
+    min-height: 7.6em;
+    top: 180px;
+    left: 50%;
+    margin-left: -3.8em;
+    background: rgba(17, 17, 17, 0.7);
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    word-break:break-all;
+}
 .loading {
   min-width: 24px;
   min-height: 24px;
