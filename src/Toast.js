@@ -1,5 +1,5 @@
 // import getSingle from './getSingle.js';
-var { Type, shift } = require('./utils.js');
+var { Type, shift, objFilter, objAssign } = require('./utils.js');
 var getDiv = require('./dom.js');
 
 // 类型、默认状态、属性定义
@@ -29,20 +29,17 @@ function Toast() {
     this.div = getDiv();
 }
 
-for (var key in TYPES) {
-    // 过滤掉继承属性
-    if (TYPES.hasOwnProperty(key)) {
-        Toast.prototype[key] = function() {
-            this.type = TYPES[key];
-            this._init.apply(this, arguments);
-            this._show();
-        };
+objFilter(TYPES, function(key, val) {
+    Toast.prototype[key] = function() {
+        this.type = val;
+        this._init.apply(this, arguments);
+        this._show();
     }
-}
+});
 
 // 初始化toast
 Toast.prototype._init = function() {
-    // console.log('参数', arguments[0],arguments[1]);
+    // 设置默认值
     var options = {
             text: this.type.defaultText,
             duration: this.type.defaultDuration
@@ -54,10 +51,10 @@ Toast.prototype._init = function() {
     // 第一个参数类型的判断
     if (Type.isObject(content)) {
         // 如果第一个参数是对象 options = content
-        options = content;
+        options = objAssign(options, content);
     }
     if (Type.isString(content) || Type.isNumber(content)) {
-        // 如果第一个参数是字符串
+        // 如果第一个参数是字符串或数字
         options.text = content;
     }
 
@@ -67,36 +64,36 @@ Toast.prototype._init = function() {
         options.complete = args;
     }
     if (Type.isObject(args)) {
-        console.log('正确判断对象', args);
-        for (var key in args) {
-            if (args.hasOwnProperty(key)) {
-                options[key] = args[key];
-            }
-        }
-        console.log('组装完后的options', options);
+        options = objAssign(options, args);
     }
+    // console.log('处理后的参数', options);
     this._generate(options);
 };
 
 Toast.prototype._generate = function(options) {
     console.log('开始执行', options);
-    if (options.duration && Type.isFunction(options.complete)) {
-
-        options.timer = setTimeout(function() {
-            options.complete();
-        }, Number(options.duration));
+    // 如果有持续时长
+    if (options.duration) {
+        clearTimeout(this.timer);
+        this.timer = setTimeout(function() {
+            this.hide();
+            // 如果有回调函数
+            Type.isFunction(options.complete) && options.complete.call(this);
+        }.bind(this), Number(options.duration));
     }
     this.div.className = this.type.className;
     this.div.innerHTML = options.text;
-}
+};
 
 Toast.prototype._show = function() {
+    this.hide();
     document.body.appendChild(this.div);
     this.div.style.display = 'block';
 };
 
-Toast.prototype.hide = function() {
+Toast.prototype.hide = function(fn) {
     this.div.style.display = 'none';
+    Type.isFunction(fn) && fn.call(this);
 };
 
 module.exports = new Toast();

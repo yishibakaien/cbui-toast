@@ -4,6 +4,7 @@ function createDOM() {
     var div = document.createElement('div');
     css(div, {
         position: 'fixed',
+        transition: '0.5s',
         margin: '0',
         padding: '0',
         left: '50%',

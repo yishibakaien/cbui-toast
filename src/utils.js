@@ -35,6 +35,42 @@ function after(targetFn, afterFn) {
         return ret;
     };
 }
+
+/**
+ * 对象的forEach 操作
+ * @param  {object}   obj 目标对象
+ * @param  {Function} fn  操作
+ */
+function objFilter(obj, fn) {
+    for (var key in obj) {
+        // 过滤掉继承的属性
+        if (obj.hasOwnProperty(key)) {
+            fn.call(this, key, obj[key]);
+        }
+    }
+}
+
+/**
+ * 对象合并
+ * @param  {object} target 目标对象
+ * @return {object}        合并后的对象
+ */
+function objAssign(target) {
+    if (Object.prototype.toString.call(target) !== '[object Object]') {
+        throw new TypeError('请传入对象');
+    }
+    for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i];
+        if (source) {
+            for (var key in source) { 
+                if (source.hasOwnProperty(key)) {
+                    target[key] = source[key];
+                }
+            }
+        }
+    }
+    return target;
+}
 /**
  * 弹出操作
  * @param  {args}        类数组(参数数组)
@@ -65,6 +101,8 @@ module.exports = {
     css,
     getSingle,
     after,
+    objFilter,
+    objAssign,
     Type,
     shift
 };
