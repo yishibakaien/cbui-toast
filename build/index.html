@@ -127,63 +127,31 @@
 
 <body>
     <h1>blackTip</h1>
-    <button id="show">显示DIV</button>
-    <button id="hide">隐藏DIV</button>
-    <button id="text">点击显示带文字DIV</button>
+    <button id="loading">loading</button>
+    <button id="success">success</button>
+    <button id="info">info</button>
+    <button id="error">error</button>
 <script>
 
-    // var div;
-    
-    // function getSingle(fn) {
-    //     var ret;
-    //     return function() {
-    //         return ret || (ret = fn.apply(this, arguments));
-    //     };
-    // }
-
-    // function createDOM() {
-    //     var _div = document.createElement('div');
-    //     _css(_div, {
-    //         margin: '50px auto',
-    //         width: '200px',
-    //         height: '200px',
-    //         backgroundColor: '#ccc'
-    //     });
-    //     return _div;
-    // }
-
-    // var getDiv = getSingle(createDOM);
-
-    // function show() {
-    //     div = getDiv();
-    //     document.body.appendChild(div);
-    //     return div;
-    // }
-
-    // function _css(ele, options) {
-    //     for (var key in options) {
-    //         if (options.hasOwnProperty(key)) {
-    //             ele.style[key] = options[key];
-    //         }
-    //     }
-    // }
-
     // 事件操作
-    // function $(str) {
-    //     return document.querySelector(str);
-    // }
-    // function bind(ele, fn) {
-    //     ele.addEventListener('click', fn, false);
-    // }
-    // bind($('#show'), function() {
-    //     show();
-    // });
-    // bind($('#hide'), function() {
-    //     document.body.removeChild(div);
-    // });
-    // bind($('#text'), function() {
-    //     show().innerHTML = '插入的文字';
-    // });
+    function $(str) {
+        return document.querySelector(str);
+    }
+    function bind(ele, fn) {
+        ele.addEventListener('click', fn, false);
+    }
+    bind($('#loading'), function() {
+        Toast.loading();
+    });
+    bind($('#success'), function() {
+        Toast.success();
+    });
+    bind($('#info'), function() {
+        Toast.info();
+    });
+    bind($('#error'), function() {
+        Toast.error();
+    });
 
 </script>
 </body>

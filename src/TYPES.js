@@ -3,12 +3,12 @@
 module.exports = {
     loading: {
         className: 'loading',
-        defaultText: '请稍后..'
+        defaultText: '请稍后...'
     },
     info: {
         className: 'info',
         defaultText: '警告',
-        defaultDuration: 2000
+        defaultDuration: 1500
     },
     success: {
         className: 'success',
@@ -18,6 +18,6 @@ module.exports = {
     error: {
         className: 'error',
         defaultText: '出现错误',
-        defaultDuration: 2000
+        defaultDuration: 1500
     }
 };
