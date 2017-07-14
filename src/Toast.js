@@ -1,43 +1,36 @@
 // import getSingle from './getSingle.js';
-var { Type, shift, objFilter, objAssign, bind, unbind, hide } = require('./utils.js');
-var getDiv = require('./dom.js');
 
-// 类型、默认状态、属性定义
-var TYPES = {
-    loading: {
-        className: 'loading',
-        defaultText: '请稍后..'
-    },
-    info: {
-        className: 'info',
-        defaultText: '警告',
-        defaultDuration: 2000
-    },
-    success: {
-        className: 'success',
-        defaultText: '已完成',
-        defaultDuration: 800
-    },
-    error: {
-        className: 'error',
-        defaultText: '出现错误',
-        defaultDuration: 2000
-    }
-};
+var utils = require('./utils.js');
+var getDiv = require('./dom.js');
+var TYPES = require('./TYPES.js');
+
+// 打包的时候发现 webpack 压缩不支持 ES6 语法....
+var Type = utils.Type;
+var getType = utils.getType;
+var shift = utils.shift;
+var objFilter = utils.objFilter;
+var objAssign = utils.objAssign;
+var bind = utils.bind;
+var unbind = utils.unbind;
+var hide = utils.hide;
 
 function Toast() {
     this.div = getDiv();
 }
 
+/**
+ * 根据 TYPES 的定义类型 在 Toast 原型上挂载相应的方法
+ * @param  {[type]} key  TYPES 的 key 值
+ * @param  {[type]} val  TYPES[key]
+ */
 objFilter(TYPES, function(key, val) {
     Toast.prototype[key] = function() {
         this.type = val;
         this._init.apply(this, arguments);
-        this._show();
     }
 });
 
-// 初始化toast
+// 初始化 toast 
 Toast.prototype._init = function() {
     // 设置默认值
     var options = {
@@ -47,18 +40,22 @@ Toast.prototype._init = function() {
         // 第一个参数
         content = shift(arguments),
         args;
-        
     // 第一个参数类型的判断
-    if (Type.isObject(content)) {
-        // 如果第一个参数是对象 options = content
-        options = objAssign(options, content);
-    }
-    if (Type.isString(content)) {
-        // 如果第一个参数是字符串或数字
-        options.text = content;
-    }
-    if (Type.isNumber(content)) {
-        options.duration = content;
+    switch (true) {
+        case Type.isObject(content):
+            options = objAssign(options, content);
+            break;
+        case Type.isString(content):
+            options.text = content;
+            break;
+        case Type.isNumber(content):
+            options.duration = content;
+            break;
+        case Type.isFunction(content):
+            options.complete = content;
+            break;
+        default:
+            break;
     }
 
     // 此时的 arguments 为弹出了第一项后剩余的内容
@@ -69,12 +66,14 @@ Toast.prototype._init = function() {
     if (Type.isObject(args)) {
         options = objAssign(options, args);
     }
-    // console.log('处理后的参数', options);
     this._generate(options);
 };
 
+/**
+ * 根据配置参数生成 toast
+ * @param  {[type]} options 配置参数
+ */
 Toast.prototype._generate = function(options) {
-    // console.log('开始执行', options);
     // 如果有持续时长
     if (options.duration) {
         clearTimeout(this.timer);
@@ -85,10 +84,14 @@ Toast.prototype._generate = function(options) {
         }.bind(this), Number(options.duration));
     }
     this.div.childNodes[0].className = this.type.className;
-    console.log(this.div.childNodes);
+    // console.log(this.div.childNodes);
     this.div.childNodes[1].innerHTML = options.text;
+    this._show();
 };
 
+/**
+ * 内部使用方法 显示 toast
+ */
 Toast.prototype._show = function() {
     document.body.appendChild(this.div);
     this.div.style.display = 'block';
@@ -97,6 +100,10 @@ Toast.prototype._show = function() {
     this.div.classList.add('scale-in');
 };
 
+/**
+ * 显示 toast 
+ * @param  {Function} cb 回调函数
+ */
 Toast.prototype.hide = function(cb) {
     this.div.classList.remove('scale-in');
     this.div.classList.add('scale-out');

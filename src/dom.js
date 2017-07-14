@@ -1,4 +1,4 @@
-var { css, getSingle } = require('./utils.js');
+var getSingle = require('./utils.js').getSingle;
 
 function createDOM() {
     var div = document.createElement('div');

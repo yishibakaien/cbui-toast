@@ -1,5 +1,6 @@
 'use strict';
 var htmlWebpackPlugin = require('html-webpack-plugin');
+var webpack = require('webpack');
 
 module.exports = {
     entry: {
@@ -24,6 +25,13 @@ module.exports = {
             filename: 'index.html',
             chunks: ['app'],
             inject: 'head'
+        }),
+        new webpack.optimize.UglifyJsPlugin({ // js压缩
+            compress: {
+                warnings: false,
+                drop_debugger: true,
+                drop_console: true
+            }
         })
     ]
 }

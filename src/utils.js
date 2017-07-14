@@ -99,6 +99,9 @@ function unbind(events, ele, handler) {
 function hide() {
     this.style.display = 'none';
 }
+function getType(obj) {
+    return Object.prototype.toString.call(obj).split(' ')[1].split(']')[0];
+}
 /**
  * 对象类型判断，不支持NaN
  * @example
@@ -118,27 +121,15 @@ var Type = (function() {
 })();
 
 module.exports = {
-    css,
-    getSingle,
-    after,
-    objFilter,
-    objAssign,
-    Type,
-    shift,
-    bind,
-    unbind,
-    hide
+    css: css,
+    getSingle: getSingle,
+    after: after,
+    objFilter: objFilter,
+    objAssign: objAssign,
+    Type: Type,
+    getType: getType,
+    shift: shift,
+    bind: bind,
+    unbind: unbind,
+    hide: hide
 };
-
-// var Decoretor = {
-//     after: function(targetFn, afterFn) {
-//         var _this = this;
-//         return function() {
-//             var ret = _this.apply(this, arguments);
-//             fn.apply(this, arguments);
-//             return ret;
-//         }
-//     }
-// };
-// export default Decoretor
- 
