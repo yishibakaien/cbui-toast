@@ -79,6 +79,26 @@ function objAssign(target) {
 function shift(args) {
     return Array.prototype.shift.call(args);
 }
+
+function bind(events, ele, handler) {
+    events.split(' ').forEach(function(event) {
+        ele.addEventListener(event, handler);
+    });
+}
+
+/**
+ * 因为现在 removeEventListener 不支持移除 绑定的匿名函数，
+ * 所以移除所有 listener
+ */
+function unbind(events, ele, handler) {
+    events.split(' ').forEach(function(event) {
+        ele.removeEventListener(event, handler);
+    });
+}
+
+function hide() {
+    this.style.display = 'none';
+}
 /**
  * 对象类型判断，不支持NaN
  * @example
@@ -104,7 +124,10 @@ module.exports = {
     objFilter,
     objAssign,
     Type,
-    shift
+    shift,
+    bind,
+    unbind,
+    hide
 };
 
 // var Decoretor = {

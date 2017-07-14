@@ -1,5 +1,5 @@
 // import getSingle from './getSingle.js';
-var { Type, shift, objFilter, objAssign } = require('./utils.js');
+var { Type, shift, objFilter, objAssign, bind, unbind, hide } = require('./utils.js');
 var getDiv = require('./dom.js');
 
 // 类型、默认状态、属性定义
@@ -16,7 +16,7 @@ var TYPES = {
     success: {
         className: 'success',
         defaultText: '已完成',
-        defaultDuration: 600
+        defaultDuration: 800
     },
     error: {
         className: 'error',
@@ -53,9 +53,12 @@ Toast.prototype._init = function() {
         // 如果第一个参数是对象 options = content
         options = objAssign(options, content);
     }
-    if (Type.isString(content) || Type.isNumber(content)) {
+    if (Type.isString(content)) {
         // 如果第一个参数是字符串或数字
         options.text = content;
+    }
+    if (Type.isNumber(content)) {
+        options.duration = content;
     }
 
     // 此时的 arguments 为弹出了第一项后剩余的内容
@@ -71,7 +74,7 @@ Toast.prototype._init = function() {
 };
 
 Toast.prototype._generate = function(options) {
-    console.log('开始执行', options);
+    // console.log('开始执行', options);
     // 如果有持续时长
     if (options.duration) {
         clearTimeout(this.timer);
@@ -81,19 +84,24 @@ Toast.prototype._generate = function(options) {
             Type.isFunction(options.complete) && options.complete.call(this);
         }.bind(this), Number(options.duration));
     }
-    this.div.className = this.type.className;
-    this.div.innerHTML = options.text;
+    this.div.childNodes[0].className = this.type.className;
+    console.log(this.div.childNodes);
+    this.div.childNodes[1].innerHTML = options.text;
 };
 
 Toast.prototype._show = function() {
-    this.hide();
     document.body.appendChild(this.div);
     this.div.style.display = 'block';
+    unbind('animation webkitAnimationEnd', this.div, hide);
+    this.div.classList.remove('scale-out');
+    this.div.classList.add('scale-in');
 };
 
-Toast.prototype.hide = function(fn) {
-    this.div.style.display = 'none';
-    Type.isFunction(fn) && fn.call(this);
+Toast.prototype.hide = function(cb) {
+    this.div.classList.remove('scale-in');
+    this.div.classList.add('scale-out');
+    bind('animationEnd webkitAnimationEnd', this.div, hide);
+    Type.isFunction(cb) && cb.call(this);
 };
 
 module.exports = new Toast();
