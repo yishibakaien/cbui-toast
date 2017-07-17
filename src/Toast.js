@@ -68,9 +68,11 @@ Toast.prototype._init = function() {
     // 此时的 arguments 为弹出了第一项后剩余的内容
     args = shift(arguments);
     if (Type.isFunction(args)) {
+        // 第二个参数为方法时
         options.complete = args;
     }
     if (Type.isObject(args)) {
+        // 第二个参数是个对象时
         options = objAssign(options, args);
     }
     this._generate(options);
@@ -83,6 +85,7 @@ Toast.prototype._init = function() {
 Toast.prototype._generate = function(options) {  
     // 清除 timer 保证当前 toast 正常显示
     clearTimeout(this.timer);
+    // 如果 options 中有 duration 表明这种 toast 是显示一段时间后自动隐藏的类型
     if (options.duration) {
         // 如果有 duration 配置    
         this.timer = setTimeout(function() {

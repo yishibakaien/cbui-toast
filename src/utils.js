@@ -55,6 +55,9 @@ function objFilter(obj, fn) {
  * @param  {object} target 目标对象
  * @return {object}        合并后的对象
  */
+// function cloneObject(obj) {
+//     if () {}
+// }
 function objAssign(target) {
     if (Object.prototype.toString.call(target) !== '[object Object]') {
         throw new TypeError('请传入对象');
@@ -100,7 +103,7 @@ function hide() {
     this.style.display = 'none';
 }
 function getType(obj) {
-    return Object.prototype.toString.call(obj).split(' ')[1].split(']')[0];
+    return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
 }
 /**
  * 对象类型判断，不支持NaN
