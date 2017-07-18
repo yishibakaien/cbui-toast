@@ -102,24 +102,31 @@ function unbind(events, ele, handler) {
 function hide() {
     this.style.display = 'none';
 }
-function getType(obj) {
+/**
+ * 类型判断 typeof 的升级版
+ * object string array ...
+ * @param  {object}     需要判断类型的对象
+ * @return {string}     返回一个字符串 (具体类型)
+ */
+function typeOf(obj) {
     return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
 }
 /**
  * 对象类型判断，不支持NaN
+ * @return {boolean}     返回一个布尔值
  * @example
  * Type.isArray([1, 2, 3]) // true 
  * Type.isObject([1, 2, 3]) // false
  */
 var Type = (function() {
-    var obj = {};
-    for (var i = 0, type; type = ['String', 'Object', 'Array', 'Number', 'Function', 'Undefined', 'Null'][i++];) {
-        (function(type) {
-            obj['is' + type] = function(target) {
-                return Object.prototype.toString.call(target) === '[object ' + type + ']';
-            }
-        })(type);
-    }
+    var obj = {},
+        toString = Object.prototype.toString,
+        type = ['String', 'Object', 'Array', 'Number', 'Function', 'Undefined', 'Null'];
+    type.forEach(function(item) {
+        obj['is' + item] = function(target) {
+            return toString.call(target) === '[object ' + item + ']';
+        };
+    });
     return obj;
 })();
 
@@ -130,7 +137,7 @@ module.exports = {
     objFilter: objFilter,
     objAssign: objAssign,
     Type: Type,
-    getType: getType,
+    typeOf: typeOf,
     shift: shift,
     bind: bind,
     unbind: unbind,

@@ -1,47 +1,39 @@
+'use strict';
 
-(function() {
-    var animate = function(selector) {
-        return new animate.fn.init(selector);
-    }
-    animate.fn = animate.prototype = {
-        selector: '',
-        length: 0,
-        constructor: animate,
-        find: function(selector) {
-            var ret = [];
-            ret.push(document.getElementById(selector));
-            ret = this.pushStack(ret);
-            ret.selector = selector;
-            return ret;
-        },
-        pushStack: function(eles) {
-            var ret = this.constructor();
-            for (var i = 0, len = eles.length; i < len; i++) {
-                ret[i] = eles[i]
-            }
-            ret.length = i;
-            ret.prevObject = this;
-            ret.context = this.context;
-            return ret;
-        },
-        msg: function() {
-            console.log('test function');
-        }
-    }
-    var init = animate.fn.init = function(selector) {
-        if (!selector) {
-            return this;
-        }
-        if (typeof selector === 'string') {
-            return rootAnimate.find(selector);
-        } else if (selector.nodeType) {
-            this.context = this[0] = selector;
-            this.length = 1;
-            return this;
-        }
-    }
-    init.prototype = animate.fn;
-    var rootAnimate = animate(document);
+var utils = require('./utils.js');
 
-    module.exports = $ = animate;
-})();
+// 简单的动画效果实现，待完善
+function Animate(ele) {
+    this.init(ele);
+};
+
+Animate.prototype.init = function(ele) {
+    this.ele = ele;
+    return this;
+};
+
+/**
+ * 缩放渐显效果
+ * @return {[type]} [description]
+ */
+Animate.prototype.scaleIn = function() {
+    this.ele.style.display = 'block';
+    utils.unbind('animation webkitAnimationEnd', this.ele, utils.hide);
+    this.ele.classList.remove('scale-out');
+    this.ele.classList.add('scale-in');
+    return this;
+};
+/**
+ * 缩放渐隐效果
+ * @return {[type]} [description]
+ */
+Animate.prototype.scaleOut = function() {
+    this.ele.classList.remove('scale-in');
+    this.ele.classList.add('scale-out');
+    utils.bind('animation webkitAnimationEnd', this.ele, utils.hide);
+    return this;
+};
+
+module.exports = function(ele) {
+    return new Animate(ele);
+};

@@ -3,9 +3,7 @@
 var utils = require('./utils.js');
 var getDiv = require('./dom.js');
 var TYPES = require('./TYPES.js');
-
-// var animate = require('./animate.js');
-// console.log(animate('#loading').msg());
+var animate = require('./animate.js');
 
 // 打包的时候发现 webpack 压缩不支持 ES6 语法....
 var Type = utils.Type;
@@ -94,8 +92,9 @@ Toast.prototype._generate = function(options) {
             Type.isFunction(options.complete) && options.complete.call(this);
         }.bind(this), Number(options.duration));
     }
+    // 第一个子元素为 icon 小图标
     this.div.childNodes[0].className = this.type.className;
-    // console.log(this.div.childNodes);
+    // 第二个子元素为文本
     this.div.childNodes[1].innerHTML = options.text;
     this._show();
 };
@@ -104,11 +103,10 @@ Toast.prototype._generate = function(options) {
  * 内部使用方法 显示 toast
  */
 Toast.prototype._show = function() {
+    // 这里的 this.div 是一个单例，本质上是内存的引用，
+    // 所以始终页面都只有一个插入的 div.
     document.body.appendChild(this.div);
-    this.div.style.display = 'block';
-    unbind('animation webkitAnimationEnd', this.div, hide);
-    this.div.classList.remove('scale-out');
-    this.div.classList.add('scale-in');
+    animate(this.div).scaleIn();
 };
 
 /**
@@ -116,9 +114,7 @@ Toast.prototype._show = function() {
  * @param  {Function} cb 回调函数
  */
 Toast.prototype.hide = function(cb) {
-    this.div.classList.remove('scale-in');
-    this.div.classList.add('scale-out');
-    bind('animationEnd webkitAnimationEnd', this.div, hide);
+    animate(this.div).scaleOut();
     Type.isFunction(cb) && cb.call(this);
 };
 

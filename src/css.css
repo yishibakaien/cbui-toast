@@ -4,6 +4,8 @@
   line-height: 1.6;
   position: fixed;
   z-index: 5000;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
   width: 7.6em;
   min-height: 7.6em;
   top: 180px;

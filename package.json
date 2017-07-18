@@ -4,7 +4,8 @@
   "description": "little tip/toast plugin for mobile web",
   "main": "./build/blackTip.js",
   "scripts": {
-    "dev": "webpack-dev-server --progress --colors --inline"
+    "dev": "webpack-dev-server --progress --colors --inline",
+    "build": "webpack -p"
   },
   "keywords": [
     "black-tip",
