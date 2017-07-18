@@ -73,6 +73,10 @@ Toast.prototype._init = function() {
         // 第二个参数是个对象时
         options = objAssign(options, args);
     }
+    if (Type.isString(content) && Type.isNumber(args)) {
+        // 第一个参数是字符串， 第二个参数是数字
+        options.duration = args;
+    }
     this._generate(options);
 };
 

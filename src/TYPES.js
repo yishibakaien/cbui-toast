@@ -17,7 +17,7 @@ module.exports = {
     },
     error: {
         className: 'error',
-        defaultText: '出现错误',
+        defaultText: '错误',
         defaultDuration: 1500
     }
 };
