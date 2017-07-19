@@ -20,7 +20,7 @@ Toast.error();
 ![screenshot](screenshot/4.png)
 
 ## Demo
-[demo 点击预览](https://yishibakaien.github.io/black-tip/index.html)
+[demo 点击预览](https://yishibakaien.github.io/black-tip/build/index.html)
 
 ## Install 安装
 #### npm 安装
