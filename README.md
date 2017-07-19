@@ -41,31 +41,30 @@ $ cnpm install black-tip --save-dev
 > icon - 打钩标志，默认显示时间 800ms， 默认文字 '已完成'
 ```js
 
-Toast.success('提交成功') // 默认显示 800ms 后消失
+Toast.success('提交成功') // 显示 0.8 秒
 
-Toast.success(1000) // 传入一个参数，且为数字时，文字为默认文字 '已完成'， 显示 1000ms 后消失
+Toast.success(1000) // 显示1秒，文字'已完成'
 
-Toast.success('提交成功', 1500) // 第一个参数字符串，第二个参数为数字时， 此例显示 1500ms 后消失
+Toast.success('提交成功', 1500) // 显示1.5秒
 
-// 也可以
+// 两个参数
 Toast.success('提交成功'， { 
-    duration: 800,  // 持续时长 不填默认 800
+    duration: 1000,  // 持续时长，不填默认 800
     complete: function() {
-        console.log('我经完成了');
+        console.log('我完成了');
     }
 });
 
-// 也可以
+// 直接跟回调函数，800ms Toast 隐藏后执行
 Toast.success('提交成功', function() {
-    console.log('我经完成了'); // 回调函数默认 800ms 后执行
+    console.log('我完成了');
 });
 
-// 也可以
 Toast.success({
     text: '提交成功',
     duration: 600,
     complete: function() {
-        console.log('我经完成了');
+        console.log('我完成了');
     }
 });
 
@@ -78,17 +77,17 @@ Toast.success({
 
 #### ----分割一下----
 - Toast.loading() 
-> icon 为旋转的小图标，默认文字为 '请稍后..'，不会自动消失，可以通过  Toast.hide() 方法隐藏，或在参数中传入 duration (持续时长) 值，时间到了后自动隐藏
+> icon 为旋转的菊花，默认文字为 '请稍后..'，不会自动消失，可以通过  Toast.hide() 方法隐藏，或在参数中传入 duration (持续时长) 值，时间到了后自动隐藏
 ```js
 Toast.loading('正在加载中'， {duration: 3000});
 ```
 - Toast.hide() 
-> 隐藏正在显示的 Toast， 可传入一个 回调函数 Toast 隐藏后执行
+> 随时都可以调用此方法，隐藏正在显示的 Toast，并可传入一个回调函数 会在 Toast 隐藏后执行
 ```js
 Toast.loading('正在加载中');
-setTimeout(() => {
+setTimeout(function() {
     Toast.hide(function(){
-        console.log('我已经隐藏了')
+        console.log('我隐藏了');
     });
 }, 1000);
 ```

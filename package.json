@@ -1,11 +1,15 @@
 {
-  "name": "Toast",
+  "name": "black-tip",
   "version": "2.0.0",
   "description": "little tip/toast plugin for mobile web",
   "main": "./build/Toast.js",
   "scripts": {
     "dev": "webpack-dev-server --progress --colors --inline",
     "build": "webpack -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yishibakaien/black-tip.git"
   },
   "keywords": [
     "black-tip",
