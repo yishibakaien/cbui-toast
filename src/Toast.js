@@ -65,17 +65,22 @@ Toast.prototype._init = function() {
 
     // 此时的 arguments 为弹出了第一项后剩余的内容
     args = shift(arguments);
-    if (Type.isFunction(args)) {
+
+    switch (true) {
         // 第二个参数为方法时
-        options.complete = args;
-    }
-    if (Type.isObject(args)) {
+        case Type.isFunction(args):
+            options.complete = args;
+            break;
         // 第二个参数是个对象时
-        options = objAssign(options, args);
-    }
-    if (Type.isString(content) && Type.isNumber(args)) {
+        case Type.isObject(args):
+            options = objAssign(options, args);
+            break;
         // 第一个参数是字符串， 第二个参数是数字
-        options.duration = args;
+        case Type.isString(content) && Type.isNumber(args):
+            options.duration = args;
+            break;
+        default:
+            break;
     }
     this._generate(options);
 };
@@ -114,7 +119,7 @@ Toast.prototype._show = function() {
 };
 
 /**
- * 显示 toast 
+ * 隐藏 toast 
  * @param  {Function} cb 回调函数
  */
 Toast.prototype.hide = function(cb) {
