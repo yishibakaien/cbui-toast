@@ -63,10 +63,14 @@ Toast.prototype._init = function() {
             break;
     }
 
-    // 此时的 arguments 为弹出了第一项后剩余的内容
+    // 此时的 arguments 为弹出了第一项后剩余的内容，
+    // args 则为第二项
     args = shift(arguments);
 
     switch (true) {
+        // 没有第二个参数
+        case Type.isUndefined(args):
+            break;
         // 第二个参数为方法时
         case Type.isFunction(args):
             options.complete = args;

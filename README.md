@@ -37,81 +37,112 @@ $ cnpm install black-tip --save-dev
 ```
 ## Usage 使用 
 #### API
-- Toast.success() 
-> icon - 打钩标志，默认显示时间 800ms， 默认文字 '已完成'
-```js
+#
+## `Toast.success() `
 
+> `icon` 打钩标志，不传参数时，默认显示时间 800ms， 默认文字 '已完成'
+
+- 参数配置
+
+```js
 Toast.success('提交成功') // 显示 0.8 秒
 
-Toast.success(1000) // 显示1秒，文字'已完成'
+Toast.success(1000) // 显示 1 秒，文字为默认文字 '已完成'
 
-Toast.success('提交成功', 1500) // 显示1.5秒
+Toast.success('提交成功', 1500) // 显示 1.5 秒
 
-// 两个参数
-Toast.success('提交成功'， { 
-    duration: 1000,  // 持续时长，不填默认 800
-    complete: function() {
-        console.log('我完成了');
-    }
-});
-
-// 直接跟回调函数，800ms Toast 隐藏后执行
+// 第二个参数为回调函数
 Toast.success('提交成功', function() {
-    console.log('我完成了');
+// 在显示 800ms 后 Toast 隐藏时执行
+console.log('我是回调函数');
 });
 
+// 第二个参数为配置项
+Toast.success('提交成功'， {
+duration: 1000, // 持续时长(ms)，不填默认 800
+complete: function() {
+console.log('我完成了');
+}
+});
+
+// 一个配置项
 Toast.success({
-    text: '提交成功',
-    duration: 600,
-    complete: function() {
-        console.log('我完成了');
-    }
+text: '提交成功',
+duration: 600,
+complete: function() {
+console.log('我完成了');
+}
 });
 
 ```
-- Toast.info()  
-> icon - 感叹号 '!'，默认显示时间 1500ms，默认文字 '警告'，参数同 Toast.success()
+### `Toast.info()`
+> `icon` 感叹号标志 “!”，默认显示时间 1500ms，默认文字 “警告”，参数同 `Toast.success()`
 
-- Toast.error() 
-> icon -  '×'，默认显示时间 1500ms ，默认文字 '错误'，参数同 Toast.success()
+### `Toast.error()`
+> `icon` 打叉标志 “×”，默认显示时间 1500ms ，默认文字 “错误”，参数同 `Toast.success()`
 
-#### ----分割一下----
-- Toast.loading() 
-> icon 为旋转的菊花，默认文字为 '请稍后..'，不会自动消失，可以通过  Toast.hide() 方法隐藏，或在参数中传入 duration (持续时长) 值，时间到了后自动隐藏
+### `Toast.loading()`
+> `icon` 旋转的菊花型标志，默认文字为 “请稍后...”
+
+- 参数配置
+
 ```js
-Toast.loading('正在加载中'， {duration: 3000});
+Toast.loading('正在加载中');
+
+Toast.loading({
+text: '正在加载中',
+duration: 3000 // 可以配置显示时长，但建议根据情况调用 Toast.hide() 方法来隐藏
+});
 ```
-- Toast.hide() 
-> 随时都可以调用此方法，隐藏正在显示的 Toast，并可传入一个回调函数 会在 Toast 隐藏后执行
+
+### `Toast.hide()`
+> 隐藏正在显示的 Toast，随时都可以调用此方法，并可传入一个回调函数 会在 Toast 隐藏后执行
+
+- 参数配置
+
 ```js
 Toast.loading('正在加载中');
 setTimeout(function() {
-    Toast.hide(function(){
-        console.log('我隐藏了');
-    });
+Toast.hide(function(){
+console.log('我隐藏了');
+});
 }, 1000);
 ```
+_**tip:**_
 
-#### Props 参数
-###### 根据需求可以传入多种多样的参数
+1. `Toast.loading()` 通常用于反馈用户操作等待状态，因为无法知道什么时候会有反馈结果，因此不会自动消失，需要根据实际情况来调用隐藏方法来隐藏它
 
-- arguments[0]  第一个参数
+2. 调用 `success`、 `info`、 `error`、 `loading` 等方法时，会先将当前正在显示的 `toast` 隐藏
 
-| 类型               | 默认             | 说明                                  |
+
+## Props 参数
+
+> Toast 的参数配置非常灵活，可以传入多种多样的参数配置
+
+**arguments[0] 第一个参数**
+
+| 类型 | 默认 | 说明 |
 | ---------------- | --------------- | ------------------------------------------|
-| string            | ''            | 你要展示的文字    |
-| number            |  1500ms                | toast显示时长    |
-| function            | 无                 | toast隐藏后的回调函数   |
-| object            | 无                 | toast隐藏后的回调函数   |
+| string | `success-已完成`、`info-警告`、`error-错误`、`loading-请稍后..` | 你要展示的文字 |
+| number |`success-800ms` /`info,error-2000ms` | `toast` 显示时长 |
+| function | 无 | `toast` 隐藏后的回调函数 |
+| object | 无 | `toast` 隐藏后的回调函数 |
+###
+**arguments[1] 第二个参数**
 
-###### 
-- arguments[1] 第二个参数是 object 时
+- 为 object 时
 
-| key              | 类型               | 默认             | 说明                                         |
+| key | 类型 | 默认 | 说明 |
 | ----------------| ---------------- | ---------------| ------------------------------------------|
-| text       | String   | -    | 你要展示的文字    |
-| duration             | Number            |  1500ms                | toast显示时长    |
-| complete             | Function            | -                 | toast隐藏后的回调函数   |
-###### 
-- arguments[1] 第二个参数是 function 时 
-为回调函数，隐藏后执行
+| text | string | - | 你要展示的文字 |
+| duration | sumber | `success`-800ms /`info`,`error` - 2000ms | `toast` 显示时长 |
+| complete | function | - | `toast` 隐藏后的回调函数 |
+
+- 为 function 时
+> 作为回调函数，隐藏后执行
+
+- 为 number 时（前提需要第一个参数为 string）
+
+> 作为 `Toast` 显示时长
+
+<br><br><br>
