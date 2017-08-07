@@ -1,46 +1,47 @@
 ---
-title: cbui-toast
+title: 轻量级移动端提示组件 cbui-toast
 date: 2017-08-07 22:23:43
-tags:
+tags: js
 ---
-# cbui-toast 
+# 概述
 
-移动端黑色提示，高度还原微信toast的一个轻量级提示插件，原生js实现，gzip压缩之后 只有4Kb
+高度还原微信原生 `toast` 的一个轻量级提示插件，纯js实现，gzip压缩之后只有4Kb，拥有更多样化的API接口与更高效集约的性能
+
 # 预览
 ```js
-Toast.loading('数据加载中');
+Toast.loading('请稍后...');
 ```
-![screenshot](screenshot/1.png)
+![Toast.loading()](1.png)
 ```js
-Toast.info('加载失败');
+Toast.info();
 ```
-![screenshot](screenshot/2.png)
+![Toast.info()](2.png)
 ```js
 Toast.success();
 ```
-![screenshot](screenshot/3.png)
+![Toast.success()](3.png)
 ```js
 Toast.error();
 ```
-![screenshot](screenshot/4.png)
+![Toast.error()](4.png)
 
 # Demo
 [demo 点击预览](https://yishibakaien.github.io/black-tip/build/index.html)
 
-# Install 安装
+# 安装
 ## npm 安装
 ```shell
-$ npm install black-tip --save-dev
+$ npm install cbui-toast --save-dev
 ```
 ## cnpm 淘宝镜像安装
 ```shell
-$ cnpm install black-tip --save-dev
+$ cnpm install cbui-toast --save-dev
 ```
 ## 页面引用 
 ```html
 <script src="./Toast.js"></script>
 ```
-# Usage 使用 
+# 使用 
 ## API
 ### `Toast.success() `
 
@@ -57,25 +58,25 @@ Toast.success('提交成功', 1500) // 显示 1.5 秒
 
 // 第二个参数为回调函数
 Toast.success('提交成功', function() {
-// 在显示 800ms 后 Toast 隐藏时执行
-console.log('我是回调函数');
+    // 在显示 800ms 后 Toast 隐藏时执行
+    console.log('我是回调函数');
 });
 
 // 第二个参数为配置项
 Toast.success('提交成功'， {
-duration: 1000, // 持续时长(ms)，不填默认 800
-complete: function() {
-console.log('我完成了');
-}
+    duration: 1000, // 持续时长(ms)，不填默认 800
+    complete: function() {
+        console.log('我完成了');
+    }
 });
 
 // 一个配置项
 Toast.success({
-text: '提交成功',
-duration: 600,
-complete: function() {
-console.log('我完成了');
-}
+    text: '提交成功',
+    duration: 600,
+    complete: function() {
+        console.log('我完成了');
+    }
 });
 
 ```
@@ -94,8 +95,8 @@ console.log('我完成了');
 Toast.loading('正在加载中');
 
 Toast.loading({
-text: '正在加载中',
-duration: 3000 // 可以配置显示时长，但建议根据情况调用 Toast.hide() 方法来隐藏
+    text: '正在加载中',
+    duration: 3000 // 可以配置显示时长，但建议根据情况调用 Toast.hide() 方法来隐藏
 });
 ```
 
@@ -107,9 +108,9 @@ duration: 3000 // 可以配置显示时长，但建议根据情况调用 Toast.h
 ```js
 Toast.loading('正在加载中');
 setTimeout(function() {
-Toast.hide(function(){
-console.log('我隐藏了');
-});
+    Toast.hide(function(){
+        console.log('我隐藏了');
+    });
 }, 1000);
 ```
 _**tip:**_
