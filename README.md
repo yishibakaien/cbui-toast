@@ -1,7 +1,12 @@
-# blackTip
+---
+title: cbui-toast
+date: 2017-08-07 22:23:43
+tags:
+---
+# cbui-toast 
 
 移动端黑色提示，高度还原微信toast的一个轻量级提示插件，原生js实现，gzip压缩之后 只有4Kb
-## Screenshot 预览
+# 预览
 ```js
 Toast.loading('数据加载中');
 ```
@@ -19,26 +24,25 @@ Toast.error();
 ```
 ![screenshot](screenshot/4.png)
 
-## Demo
+# Demo
 [demo 点击预览](https://yishibakaien.github.io/black-tip/build/index.html)
 
-## Install 安装
-#### npm 安装
+# Install 安装
+## npm 安装
 ```shell
 $ npm install black-tip --save-dev
 ```
-#### cnpm 淘宝镜像安装
+## cnpm 淘宝镜像安装
 ```shell
 $ cnpm install black-tip --save-dev
 ```
-#### 页面引用 
+## 页面引用 
 ```html
 <script src="./Toast.js"></script>
 ```
-## Usage 使用 
-#### API
-#
-## `Toast.success() `
+# Usage 使用 
+## API
+### `Toast.success() `
 
 > `icon` 打钩标志，不传参数时，默认显示时间 800ms， 默认文字 '已完成'
 
@@ -127,7 +131,8 @@ _**tip:**_
 | number |`success-800ms` /`info,error-2000ms` | `toast` 显示时长 |
 | function | 无 | `toast` 隐藏后的回调函数 |
 | object | 无 | `toast` 隐藏后的回调函数 |
-###
+
+
 **arguments[1] 第二个参数**
 
 - 为 object 时
@@ -138,11 +143,9 @@ _**tip:**_
 | duration | sumber | `success`-800ms /`info`,`error` - 2000ms | `toast` 显示时长 |
 | complete | function | - | `toast` 隐藏后的回调函数 |
 
+
 - 为 function 时
-> 作为回调函数，隐藏后执行
+> 作为回调函数， `Toast` 隐藏后执行
 
 - 为 number 时（前提需要第一个参数为 string）
-
 > 作为 `Toast` 显示时长
-
-<br><br><br>
