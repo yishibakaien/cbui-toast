@@ -1,6 +1,6 @@
 {
-  "name": "black-tip",
-  "version": "2.0.0",
+  "name": "cbui-toast",
+  "version": "1.0.0",
   "description": "little tip/toast plugin for mobile web",
   "main": "./build/Toast.js",
   "scripts": {
@@ -12,16 +12,16 @@
     "url": "https://github.com/yishibakaien/black-tip.git"
   },
   "keywords": [
-    "black-tip",
-    "blackTip",
+    "cbui",
+    "cbui-toast",
     "blackToast",
     "tip",
-    "mobile-tip",
+    "black-tip",
     "toast",
     "mobile-toast",
     "mobile"
   ],
-  "author": "yishibakaien",
+  "author": "yishibakaien cloud-cb",
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^0.28.0",
