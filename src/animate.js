@@ -5,7 +5,7 @@ var utils = require('./utils.js');
 // 简单的动画效果实现，待完善
 function Animate(ele) {
     this.init(ele);
-};
+}
 
 Animate.prototype.init = function(ele) {
     this.ele = ele;
