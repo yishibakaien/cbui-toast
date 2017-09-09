@@ -25,7 +25,10 @@
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^0.28.0",
+    "eslint": "^4.4.1",
+    "eslint-loader": "^1.9.0",
     "html-webpack-plugin": "^2.28.0",
+    "open-browser-webpack-plugin": "^0.0.5",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.5.0"
   }

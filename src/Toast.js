@@ -7,13 +7,13 @@ var animate = require('./animate.js');
 
 // 打包的时候发现 webpack 压缩不支持 ES6 语法....
 var Type = utils.Type;
-var getType = utils.getType;
+// var getType = utils.getType;
 var shift = utils.shift;
 var objFilter = utils.objFilter;
 var objAssign = utils.objAssign;
-var bind = utils.bind;
-var unbind = utils.unbind;
-var hide = utils.hide;
+// var bind = utils.bind;
+// var unbind = utils.unbind;
+// var hide = utils.hide;
 
 function Toast() {
     // 获取单例 div 保证全局只有一个 toast

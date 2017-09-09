@@ -1,5 +1,6 @@
 'use strict';
 var htmlWebpackPlugin = require('html-webpack-plugin');
+var openBrowserPlugin = require('open-browser-webpack-plugin');
 var webpack = require('webpack');
 
 module.exports = {
@@ -13,12 +14,28 @@ module.exports = {
         library: 'Toast',
         libraryTarget: 'umd'
     },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                enforce: 'pre',
+                loader: 'eslint-loader',
+                options: {
+                    emitWarning: true
+                }
+            }
+        ]
+    },
     devServer: {
         // port: 4000,
         // host: '127.0.0.1',
         disableHostCheck: true,
         inline: true,
-        hot: false
+        hot: false,
+        overlay: { // 这里配置 html 页面是否显示 eslint 错误信息蒙版 
+            errors: true,
+            warnings: true,
+        }
     },
     plugins: [
         new htmlWebpackPlugin({
@@ -33,6 +50,9 @@ module.exports = {
                 drop_debugger: true,
                 drop_console: true
             }
+        }),
+        new openBrowserPlugin({
+            url: 'http://localhost:4000'
         })
     ]
 }
