@@ -1,11 +1,12 @@
 'use strict';
 var htmlWebpackPlugin = require('html-webpack-plugin');
 var openBrowserPlugin = require('open-browser-webpack-plugin');
+var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
     entry: {
-        app: './src/Toast.js'
+        app: './src/index.js'
     },
     output: {
         path: __dirname + '/dist/',
@@ -13,6 +14,15 @@ module.exports = {
         chunkFilename: 'Toast.js',
         library: 'Toast',
         libraryTarget: 'umd'
+    },
+    resolve: {
+        extensions: ['.js', '.css'],
+        alias: {
+            'common': path.resolve(__dirname, './src/common'),
+            'js': path.resolve(__dirname, './src/common/scripts'),
+            'animate': path.resolve(__dirname, './src/common/scripts/animate'),
+            'widget': path.resolve(__dirname, './src/widget')
+        }
     },
     module: {
         rules: [

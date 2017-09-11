@@ -1,9 +1,9 @@
 'use strict';
 
-var utils = require('./utils.js');
+var utils = require('js/utils.js');
 var getDiv = require('./dom.js');
-var TYPES = require('./TYPES.js');
-var animate = require('./animate/animate.js');
+var TYPES = require('js/types.js');
+var animate = require('animate/animate.js');
 
 // 打包的时候发现 webpack 压缩不支持 ES6 语法....
 var Type = utils.Type;
