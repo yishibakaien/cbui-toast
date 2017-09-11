@@ -8,7 +8,7 @@ module.exports = {
         app: './src/Toast.js'
     },
     output: {
-        path: __dirname + '/build/',
+        path: __dirname + '/dist/',
         filename: 'Toast.js',
         chunkFilename: 'Toast.js',
         library: 'Toast',

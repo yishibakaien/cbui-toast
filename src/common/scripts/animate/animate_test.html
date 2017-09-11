@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <title>Document</title>
+    <style>
+        .a {
+            width: 100px;
+            height: 100px;
+            background: #3385ff;
+            display: none;
+        }
+        /* 2017年7月13日16:24:28 */
+@-webkit-keyframes scaleIn {
+    0% {
+        -webkit-transform: scale(0.8);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        opacity: 1;
+    }
+}
+@-webkit-keyframes scaleOut {
+    0% {
+        -webkit-transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(0.8);
+        opacity: 0;
+    }
+}
+.scale-in {
+    animation: scaleIn 0.2s forwards;
+    -webkit-animation: scaleIn 0.2s forwards;
+}
+.scale-out {
+    animation: scaleOut 0.2s forwards;
+    -webkit-animation: scaleOut 0.2s forwards;
+}
+    </style>
+</head>
+<body>
+    <div class="a"></div>
+    <button id="scaleIn">scaleIn</button>
+    <button id="scaleOut">scaleOut</button>
+<script>
+function bind(events, ele, handler) {
+    events.split(' ').forEach(function(event) {
+        ele.addEventListener(event, handler);
+    });
+}
+
+function unbind(events, ele, handler) {
+    events.split(' ').forEach(function(event) {
+        ele.removeEventListener(event, handler);
+    });
+}
+function hide() {
+    this.style.display = 'none';
+}
+
+// =====
+// 动画开始
+function Animate(ele) {
+    this.init(ele);
+};
+
+Animate.prototype.init = function(ele) {
+    this.ele = ele;
+    return this;
+};
+
+Animate.prototype.scaleIn = function() {
+    this.ele.style.display = 'block';
+    unbind('animation webkitAnimationEnd', this.ele, hide);
+    this.ele.classList.remove('scale-out');
+    this.ele.classList.add('scale-in');
+    return this;
+};
+Animate.prototype.scaleOut = function() {
+    this.ele.classList.remove('scale-in');
+    this.ele.classList.add('scale-out');
+    bind('animation webkitAnimationEnd', this.ele, hide);
+    return this;
+};
+
+function $(ele) {
+    return new Animate(ele);
+};
+
+    function c(str) {
+        return document.querySelector(str);
+    }
+    var a = document.getElementsByClassName('a')[0];
+    c('#scaleIn').onclick = function() {
+        $(a).scaleIn();
+    }
+    c('#scaleOut').onclick = function() {
+        $(a).scaleOut();
+    }
+    </script>
+</body>
+</html>

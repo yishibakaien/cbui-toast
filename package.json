@@ -1,27 +1,24 @@
 {
-  "name": "black-tip",
+  "name": "cbui-toast",
   "version": "2.0.0",
   "description": "little tip/toast plugin for mobile web",
-  "main": "./build/Toast.js",
+  "main": "./dist/Toast.js",
   "scripts": {
     "dev": "webpack-dev-server --progress --colors --inline --host 0.0.0.0 --port 4000",
     "build": "webpack -p"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yishibakaien/black-tip.git"
+    "url": "https://github.com/yishibakaien/cbui-toast.git"
   },
   "keywords": [
-    "black-tip",
-    "blackTip",
-    "blackToast",
     "tip",
     "mobile-tip",
     "toast",
     "mobile-toast",
     "mobile"
   ],
-  "author": "yishibakaien",
+  "author": "yishibakaien/cloud_cb",
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^0.28.0",
