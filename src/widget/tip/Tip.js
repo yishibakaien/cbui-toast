@@ -1,9 +1,9 @@
 'use strict';
 
-var utils = require('js/utils.js');
-var toastDiv = require('widget/toast/dom.js');
-var TYPES = require('js/types.js');
-var animate = require('animate/animate.js');
+var utils = require('js/utils');
+var tipDOM = require('widget/tip/dom');
+var TYPES = require('js/types');
+// var animate = require('animate/animate');
 
 // 打包的时候发现 webpack 压缩不支持 ES6 语法....
 var Type = utils.Type;
@@ -15,29 +15,28 @@ var objAssign = utils.objAssign;
 // var unbind = utils.unbind;
 // var hide = utils.hide;
 
-function Toast() {
-    // 获取单例 div 保证全局只有一个 toast
-    this.div = toastDiv();
-    // toast 计时控制器
+function Tip() {
+    // 获取单例 div 保证全局只有一个 tip
+    this.dom = tipDOM();
+    // tip 计时控制器
     this.timer = null;
 }
 
 /**
- * 根据 TYPES 的定义类型 在 Toast 原型上挂载相应的方法，
+ * 根据 TYPES 的定义类型 在 Tip 原型上挂载相应的方法，
  * 目前有 loading success info error
  * @param  {[type]} key  TYPES 的 key
  * @param  {[type]} val  TYPES[key] 一些定义的属性与默认值
  */
-objFilter(TYPES.toast, function(key, val) {
-    Toast.prototype[key] = function() {
+objFilter(TYPES.tip, function(key, val) {
+    Tip.prototype[key] = function() {
         this.type = val;
         this._init.apply(this, arguments);
     };
-    console.log(Toast);
 });
 
-// 初始化 toast (根据传入的参数最终生成统一的 options(配置项))
-Toast.prototype._init = function() {
+// 初始化 tip (根据传入的参数最终生成统一的 options(配置项))
+Tip.prototype._init = function() {
     // 设置默认值
     var options = {
             text: this.type.defaultText,
@@ -91,13 +90,13 @@ Toast.prototype._init = function() {
 };
 
 /**
- * 根据配置参数生成 toast
+ * 根据配置参数生成 tip
  * @param  {[type]} options 配置参数
  */
-Toast.prototype._generate = function(options) {  
-    // 清除 timer 保证当前 toast 正常显示
+Tip.prototype._generate = function(options) {  
+    // 清除 timer 保证当前 tip 正常显示
     clearTimeout(this.timer);
-    // 如果 options 中有 duration 表明这种 toast 是显示一段时间后自动隐藏的类型
+    // 如果 options 中有 duration 表明这种 tip 是显示一段时间后自动隐藏的类型
     if (options.duration) {
         // 如果有 duration 配置    
         this.timer = setTimeout(function() {
@@ -107,29 +106,31 @@ Toast.prototype._generate = function(options) {
         }.bind(this), Number(options.duration));
     }
     // 第一个子元素为 icon 小图标
-    this.div.childNodes[0].className = this.type.className;
+    this.dom.className = this.type.className;
     // 第二个子元素为文本
-    this.div.childNodes[1].innerHTML = options.text;
+    this.dom.innerHTML = options.text;
     this._show();
 };
 
 /**
- * 内部使用方法 显示 toast
+ * 内部使用方法 显示 tip
  */
-Toast.prototype._show = function() {
-    // 这里的 this.div 是一个单例，本质上是内存的引用，
+Tip.prototype._show = function() {
+    // 这里的 this.dom 是一个单例，本质上是内存的引用，
     // 所以始终页面都只有一个插入的 div.
-    document.body.appendChild(this.div);
-    animate(this.div).scaleIn();
+    document.body.appendChild(this.dom);
+    this.dom.style.display = 'block';
+    // animate(this.dom).scaleIn();
 };
 
 /**
- * 隐藏 toast 
+ * 隐藏 tip 
  * @param  {Function} cb 回调函数
  */
-Toast.prototype.hide = function(cb) {
-    animate(this.div).scaleOut();
+Tip.prototype.hide = function(cb) {
+    this.dom.style.display = 'none';
+    // animate(this.dom).scaleOut();
     Type.isFunction(cb) && cb.call(this);
 };
 
-module.exports = Toast;
+module.exports = Tip;

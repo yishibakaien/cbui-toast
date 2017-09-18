@@ -22,9 +22,20 @@ module.exports = {
         }
     },
     alert: {
-        className: 'alert'
+        alert: {
+            className: 'alert'
+        }
     },
     confirm: {
-        className: 'confirm'
+        confirm: {
+            className: 'confirm'
+        }
+    },
+    tip: {
+        tip: {
+            className: '_blackTip_tip_',
+            defaultText: '',
+            defaultDuration: 2100
+        }
     }
 };
