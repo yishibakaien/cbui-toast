@@ -11,22 +11,25 @@ tags: js
 ```js
 Toast.loading('请稍后...');
 ```
-![Toast.loading()](../screenshot/1.png)
+![Toast.loading()](../screenshot/1.png) 
+
 ```js
 Toast.info();
 ```
-![Toast.info()](../screenshot/2.png)
+![Toast.info()](../screenshot/2.png) 
+
 ```js
 Toast.success();
 ```
-![Toast.success()](screenshot/3.png)
+![Toast.success()](../screenshot/3.png) 
+
 ```js
 Toast.error();
 ```
-![Toast.error()](screenshot/4.png)
+![Toast.error()](../screenshot/4.png)
 
 # Demo
-[demo 点击预览](https://yishibakaien.github.io/black-tip/build/index.html)
+[demo 点击预览](https://yishibakaien.github.io/cbui-toast/)
 
 # 安装
 ## npm 安装
