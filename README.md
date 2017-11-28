@@ -7,7 +7,10 @@ tags: js
 
 高度还原微信原生 `toast` 的一个轻量级提示插件，纯js实现，gzip压缩之后只有4Kb，拥有更多样化的API接口与更高效集约的性能
 
-# 预览
+# Demo 预览
+[demo 点击预览](https://yishibakaien.github.io/cbui-toast/build/)
+
+# 基础API
 ```js
 Toast.loading('请稍后...');
 ```
@@ -28,23 +31,24 @@ Toast.error();
 ```
 ![Toast.error()](screenshot/4.png)
 
-# Demo
-[demo 点击预览](https://yishibakaien.github.io/cbui-toast/build/)
 
-# 安装
+# 安装与使用
 ## npm 安装
 ```shell
 $ npm install cbui-toast --save-dev
 ```
-## cnpm 淘宝镜像安装
-```shell
-$ cnpm install cbui-toast --save-dev
-```
-## 页面引用 
+
+## 直接引用
 ```html
 <script src="./Toast.js"></script>
 ```
-# 使用 
+```js
+import Toast from 'cbui-toast'
+```
+
+
+# API文档
+
 ## API
 ### `Toast.success() `
 
