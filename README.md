@@ -11,11 +11,11 @@ tags: js
 ```js
 Toast.loading('请稍后...');
 ```
-![Toast.loading()](screenshot/1.png)
+![Toast.loading()](../screenshot/1.png)
 ```js
 Toast.info();
 ```
-![Toast.info()](screenshot/2.png)
+![Toast.info()](../screenshot/2.png)
 ```js
 Toast.success();
 ```

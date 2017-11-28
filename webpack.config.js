@@ -44,13 +44,13 @@ module.exports = {
             chunks: ['app'],
             inject: 'head'
         }),
-        new webpack.optimize.UglifyJsPlugin({ // js压缩
-            compress: {
-                warnings: false,
-                drop_debugger: true,
-                drop_console: true
-            }
-        }),
+        // new webpack.optimize.UglifyJsPlugin({ // js压缩
+        //     compress: {
+        //         warnings: false,
+        //         drop_debugger: true,
+        //         drop_console: true
+        //     }
+        // }),
         new openBrowserPlugin({
             url: 'http://localhost:4000'
         })
