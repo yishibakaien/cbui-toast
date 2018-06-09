@@ -6,39 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
     <title>balckTip</title>
     <style>
-
     </style>
 </head>
 
 <body>
-    <h1>blackTip</h1>
+    <h1>cbui-toast</h1>
     <button id="loading">loading</button>
     <button id="success">success</button>
     <button id="info">info</button>
     <button id="error">error</button>
-<script>
+    <script>
 
-    // 事件操作
-    function $(str) {
-        return document.querySelector(str);
-    }
-    function bind(ele, fn) {
-        ele.addEventListener('click', fn, false);
-    }
-    bind($('#loading'), function() {
-        Toast.loading();
-    });
-    bind($('#success'), function() {
-        Toast.success();
-    });
-    bind($('#info'), function() {
-        Toast.info();
-    });
-    bind($('#error'), function() {
-        Toast.error();
-    });
+        // 事件操作
+        function $(str) {
+            return document.querySelector(str);
+        }
+        function bind(ele, fn) {
+            ele.addEventListener('click', fn, false);
+        }
+        bind($('#loading'), function () {
+            Toast.loading();
+        });
+        bind($('#success'), function () {
+            Toast.success();
+        });
+        bind($('#info'), function () {
+            Toast.info();
+        });
+        bind($('#error'), function () {
+            Toast.error();
+        });
 
-</script>
+    </script>
 </body>
 
 </html>
