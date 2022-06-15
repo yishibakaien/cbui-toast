@@ -1,6 +1,6 @@
 {
   "name": "cbui-toast",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "little tip/toast plugin for mobile web",
   "main": "./build/Toast.js",
   "scripts": {
